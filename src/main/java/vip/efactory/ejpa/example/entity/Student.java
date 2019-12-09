@@ -22,9 +22,9 @@ public class Student extends BaseEntity<Long> {
 
     private String name;
 
-    private int sex;    // 0 未知；1 男；2 女
+    private Integer sex;    // 0 未知；1 男；2 女
 
-    private int age;
+    private Integer age;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Temporal(TemporalType.DATE)
