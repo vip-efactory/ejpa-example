@@ -16,21 +16,21 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <ejpa.version>2.0.0.beta</ejpa.version>
+        <ejpa.version>2.0.0</ejpa.version>
         <mysql.driver.version>8.0.18</mysql.driver.version>
     </properties>
 
     <dependencies>
-        <!--        <dependency>-->
-        <!--            <groupId>vip.efactory</groupId>-->
-        <!--            <artifactId>ejpa-spring-boot-starter</artifactId>-->
-        <!--            <version>${ejpa.version}</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>vip.efactory</groupId>
-            <artifactId>ejpa</artifactId>
+            <artifactId>ejpa-spring-boot-starter</artifactId>
             <version>${ejpa.version}</version>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>vip.efactory</groupId>-->
+        <!--            <artifactId>ejpa</artifactId>-->
+        <!--            <version>${ejpa.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
