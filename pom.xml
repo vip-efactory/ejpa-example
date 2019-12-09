@@ -21,11 +21,14 @@
     </properties>
 
     <dependencies>
+        <!-- 使用中央仓库的版本 -->
         <dependency>
             <groupId>vip.efactory</groupId>
             <artifactId>ejpa-spring-boot-starter</artifactId>
             <version>${ejpa.version}</version>
+            <type>pom</type>
         </dependency>
+        <!-- 使用本地的开发包 -->
         <!--        <dependency>-->
         <!--            <groupId>vip.efactory</groupId>-->
         <!--            <artifactId>ejpa</artifactId>-->
