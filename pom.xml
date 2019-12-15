@@ -16,24 +16,24 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <ejpa.version>2.0.0</ejpa.version>
+        <ejpa.version>3.0.0-beta</ejpa.version>
         <mysql.driver.version>8.0.18</mysql.driver.version>
     </properties>
 
     <dependencies>
         <!-- 使用中央仓库的版本 -->
-        <dependency>
-            <groupId>vip.efactory</groupId>
-            <artifactId>ejpa-spring-boot-starter</artifactId>
-            <version>${ejpa.version}</version>
-            <type>pom</type>
-        </dependency>
-        <!-- 使用本地的开发包 -->
         <!--        <dependency>-->
         <!--            <groupId>vip.efactory</groupId>-->
-        <!--            <artifactId>ejpa</artifactId>-->
+        <!--            <artifactId>ejpa-spring-boot-starter</artifactId>-->
         <!--            <version>${ejpa.version}</version>-->
+        <!--            <type>pom</type>-->
         <!--        </dependency>-->
+        <!-- 使用本地的开发包 -->
+        <dependency>
+            <groupId>vip.efactory</groupId>
+            <artifactId>ejpa</artifactId>
+            <version>${ejpa.version}</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
