@@ -6,15 +6,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import vip.efactory.ejpa.base.controller.BaseController;
 import vip.efactory.ejpa.base.entity.BaseSearchEntity;
 import vip.efactory.ejpa.example.entity.Student;
 import vip.efactory.ejpa.example.service.IStudentService;
 import vip.efactory.ejpa.utils.R;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/student")
