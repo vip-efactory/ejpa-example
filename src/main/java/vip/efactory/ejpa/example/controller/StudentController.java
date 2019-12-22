@@ -15,7 +15,7 @@ import vip.efactory.ejpa.utils.R;
 
 @RestController
 @RequestMapping("/student")
-public class StudentController extends BaseController<Student, IStudentService> {
+public class StudentController extends BaseController<Student, IStudentService, Long> {
 
     /**
      * Description: 默认的分页与排序
