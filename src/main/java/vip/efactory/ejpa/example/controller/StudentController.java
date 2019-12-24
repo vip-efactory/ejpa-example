@@ -86,7 +86,7 @@ public class StudentController extends BaseController<Student, IStudentService, 
      */
     @PostMapping
     @ApiOperation(value = "保存记录", notes = "保存学生实体")
-    public R save(@RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) Student entity) {
+    public R save( @RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) Student entity) {
         return super.save(entity);
     }
 
