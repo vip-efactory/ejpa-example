@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.efactory.ejpa.config.tenant.ds.MultiTenantConnectionProviderImpl;
 import vip.efactory.ejpa.config.tenant.ds.MultiTenantIdentifierResolver;
 import vip.efactory.ejpa.config.tenant.ds.TenantDataSourceProvider;
-import vip.efactory.ejpa.config.tenant.id.TenantConstants;
 import vip.efactory.ejpa.example.entity.SystemTenant;
 
 import javax.annotation.PostConstruct;
@@ -75,14 +74,16 @@ public class MultiTenantJpaConfiguration {
         Map<String, Object> hibernateProps = new LinkedHashMap<>();
         hibernateProps.putAll(this.jpaProperties.getProperties());
         hibernateProps.put(Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE);
+        hibernateProps.put(Environment.PHYSICAL_NAMING_STRATEGY, "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"); //属性及column命名策略
+//        hibernateProps.put(Environment.HBM2DDL_AUTO, "update");  // 自动建表
         hibernateProps.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider);
         hibernateProps.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolver);
 
         // No dataSource is set to resulting entityManagerFactoryBean
         LocalContainerEntityManagerFactoryBean result = new LocalContainerEntityManagerFactoryBean();
 
-        result.setDataSource(TenantDataSourceProvider.getTenantDataSource(TenantConstants.DEFAULT_TENANT_ID.toString()));
-        result.setPersistenceUnitName("TENANT-" + TenantConstants.DEFAULT_TENANT_ID);
+//        result.setDataSource(TenantDataSourceProvider.getTenantDataSource(TenantConstants.DEFAULT_TENANT_ID.toString()));
+//        result.setPersistenceUnitName("TENANT-" + TenantConstants.DEFAULT_TENANT_ID);
 
         result.setPackagesToScan(new String[]{SystemTenant.class.getPackage().getName()});
         result.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
