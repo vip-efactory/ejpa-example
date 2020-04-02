@@ -2,16 +2,12 @@ package vip.efactory.ejpa.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import vip.efactory.common.i18n.enums.Entityi18nUtil;
-import vip.efactory.ejpa.base.entity.BaseEntity;
-import vip.efactory.ejpa.example.entity.Student;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @EnableJpaAuditing  // 创建时间、创建人等字段的处理
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class EjpaExampleApplication {
 
     public static void main(String[] args) {
