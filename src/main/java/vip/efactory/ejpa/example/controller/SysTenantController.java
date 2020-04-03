@@ -9,13 +9,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import vip.efactory.ejpa.base.controller.BaseController;
 import vip.efactory.ejpa.base.entity.BaseSearchEntity;
-import vip.efactory.ejpa.example.entity.SystemTenant;
-import vip.efactory.ejpa.example.service.ISystemTenantService;
+import vip.efactory.ejpa.example.entity.SysTenant;
+import vip.efactory.ejpa.example.service.ISysTenantService;
 import vip.efactory.ejpa.utils.R;
 
 @RestController
 @RequestMapping("/tenant")
-public class SystemTenantController extends BaseController<SystemTenant, ISystemTenantService, Long> {
+public class SysTenantController extends BaseController<SysTenant, ISysTenantService, Long> {
 
     /**
      * Description: 默认的分页与排序
@@ -41,7 +41,7 @@ public class SystemTenantController extends BaseController<SystemTenant, ISystem
     @ApiOperation(value = "多条件组合查询,返回分页数据", notes = "默认每页25条记录,id字段降序")
     @RequestMapping(value = "/advanced/query", method = {RequestMethod.POST})
     public R advancedQuery(@RequestBody BaseSearchEntity baseSearchEntity, @PageableDefault(value = 25, sort = {"id"}, direction = Sort.Direction.DESC) Pageable page) {
-        SystemTenant entity = new SystemTenant();
+        SysTenant entity = new SysTenant();
         BeanUtils.copyProperties(baseSearchEntity, entity);
         return super.advancedQueryByPage(page, entity);
     }
@@ -86,7 +86,7 @@ public class SystemTenantController extends BaseController<SystemTenant, ISystem
      */
     @PostMapping
     @ApiOperation(value = "保存记录", notes = "保存学生实体")
-    public R save(@RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) SystemTenant entity) {
+    public R save(@RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) SysTenant entity) {
         return super.save(entity);
     }
 
@@ -99,7 +99,7 @@ public class SystemTenantController extends BaseController<SystemTenant, ISystem
      */
     @PutMapping
     @ApiOperation(value = "依据Id来更新对应的记录", notes = "依据Id来更新对应的记录,属性值为空则不更新数据表中已有的数据")
-    public R updateById(@RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) SystemTenant entity) {
+    public R updateById(@RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) SysTenant entity) {
         return super.updateById(entity);
     }
 

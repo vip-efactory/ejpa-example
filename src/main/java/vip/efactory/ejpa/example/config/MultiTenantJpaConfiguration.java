@@ -1,13 +1,12 @@
 package vip.efactory.ejpa.example.config;
 
-import org.hibernate.FlushMode;
+import lombok.AllArgsConstructor;
 import org.hibernate.MultiTenancyStrategy;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
-import org.hibernate.tool.schema.Action;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -23,41 +22,36 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.efactory.ejpa.config.tenant.ds.MultiTenantConnectionProviderImpl;
 import vip.efactory.ejpa.config.tenant.ds.MultiTenantIdentifierResolver;
 import vip.efactory.ejpa.config.tenant.ds.TenantDataSourceProvider;
-import vip.efactory.ejpa.example.entity.SystemTenant;
+import vip.efactory.ejpa.config.tenant.id.TenantConstants;
+import vip.efactory.ejpa.example.entity.SysTenant;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@AllArgsConstructor
 @Configuration
-@EnableConfigurationProperties({MultiTenantDataSourceProperties.class, JpaProperties.class})
+@EnableConfigurationProperties({JpaProperties.class})
 @EnableTransactionManagement(proxyTargetClass = true)
-@EnableJpaRepositories(
-        basePackages = {"vip.efactory.ejpa.example.repository"},
-        transactionManagerRef = "txManager")
+@EnableJpaRepositories(basePackages = {"vip.efactory.ejpa.example.repository"}, transactionManagerRef = "txManager")
 public class MultiTenantJpaConfiguration {
 
-    @Autowired
-    private JpaProperties jpaProperties;
-
-    @Autowired
-    private MultiTenantDataSourceProperties multiTenantDataSourceProperties;
+    private JpaProperties jpaProperties;  // yml文件中的jpa配置
+    private DataSourceProperties dataSourceProperties; // yml配置文件里的数据源，也就是租户数据表所在的数据源
 
     /**
      * 初始化所有租户的数据源
      */
     @PostConstruct
     public void initDataSources() {
-        for (MultiTenantDataSourceProperties.DataSourceProperties dsProperties : this.multiTenantDataSourceProperties.getDataSourcesProps()) {
-            DataSourceBuilder factory = DataSourceBuilder
-                    .create()
-                    .url(dsProperties.getUrl())
-                    .username(dsProperties.getUsername())
-                    .password(dsProperties.getPassword())
-                    .driverClassName(dsProperties.getDriverClassName());
-            TenantDataSourceProvider.addDataSource(dsProperties.getTenantId(), factory.build());  // 放入数据源集合中
-        }
+        // 先初始化租户表所在的数据源，然后从租户表中读取其他租户的数据源然后再进行初始化,详见：DataSourceBeanPostProcessor类
+        DataSourceBuilder factory = DataSourceBuilder.create()
+                .url(dataSourceProperties.getUrl())
+                .username(dataSourceProperties.getUsername())
+                .password(dataSourceProperties.getPassword())
+                .driverClassName(dataSourceProperties.getDriverClassName());
+        TenantDataSourceProvider.addDataSource(TenantConstants.DEFAULT_TENANT_ID.toString(), factory.build());  // 放入数据源集合中
     }
 
     @Bean
@@ -76,16 +70,15 @@ public class MultiTenantJpaConfiguration {
 
         Map<String, Object> hibernateProps = new LinkedHashMap<>();
         hibernateProps.putAll(this.jpaProperties.getProperties());
-        hibernateProps.put(Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE);
+        hibernateProps.put(Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE); // 使用基于独立数据库的多租户模式
         hibernateProps.put(Environment.PHYSICAL_NAMING_STRATEGY, "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"); //属性及column命名策略
         hibernateProps.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider);
         hibernateProps.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolver);
-        hibernateProps.put(Environment.HBM2DDL_AUTO, Action.UPDATE);  // 自动建表
 
         // No dataSource is set to resulting entityManagerFactoryBean
         LocalContainerEntityManagerFactoryBean result = new LocalContainerEntityManagerFactoryBean();
 
-        result.setPackagesToScan(new String[]{SystemTenant.class.getPackage().getName()});
+        result.setPackagesToScan(new String[]{SysTenant.class.getPackage().getName()});
         result.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         result.setJpaPropertyMap(hibernateProps);
 
@@ -108,5 +101,4 @@ public class MultiTenantJpaConfiguration {
         result.setRollbackOnCommitFailure(true);
         return result;
     }
-
 }

@@ -12,15 +12,12 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
- * 学生表，用来测试接口是否正常
- * 对于校验注解，没有指定groups属性的，则默认是Default.class组，
- * 控制器里在save方法是使用默认组，
- * updateById,使用Update.class组,更新时允许部分字段为空，但是若有值则校验属性值的合法性
+ * 多租户表，用来管理系统中的多租户数据源信息
  */
 @Setter
 @Getter
 @Entity
-public class SystemTenant extends TenantEntity<Long> {
+public class SysTenant extends TenantEntity<Long> {
 
     /**
      * 租户ID，也是主键，默认为0L

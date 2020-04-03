@@ -4,37 +4,16 @@ server:
 spring:
   jpa:
     database: mysql
-#    hibernate:
-#      ddl-auto: update
+    hibernate:
+      # 就算此处是update，似乎也只是默认数据源会更新
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
 
-
+  # 此数据源应包含多租户的数据源管理表，通过该表进行多租户数据源的初始化。
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_ejpa_example?useSSL=false
+    url: jdbc:mysql://localhost:3306/db_ejpa_example_1?characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
-
-# 多租户数据源配置
-multitenancy:
-  dataSourcesProps:
-    -
-      tenantId: 0
-      url: jdbc:mysql://localhost:3306/db_ejpa_example?useSSL=false
-      username: root
-      password: 123456
-      driverClassName: com.mysql.cj.jdbc.Driver
-    -
-      tenantId: 1
-      url: jdbc:mysql://localhost:3306/db_ejpa_example_0?useSSL=false
-      username: root
-      password: 123456
-      driverClassName: com.mysql.cj.jdbc.Driver
-    -
-      tenantId: 2
-      url: jdbc:mysql://localhost:3306/db_ejpa_example_1?useSSL=false
-      username: root
-      password: 123456
-      driverClassName: com.mysql.cj.jdbc.Driver
