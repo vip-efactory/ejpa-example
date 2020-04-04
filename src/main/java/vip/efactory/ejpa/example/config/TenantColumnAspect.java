@@ -19,7 +19,7 @@ import javax.persistence.EntityManager;
 public class TenantColumnAspect {
 
     /**
-     * 在获取Hibernate的Session之后启用租户过滤器。
+     * 在获取Hibernate的Session之后启用持久化层(Hibernate会话)租户过滤器。
      *
      * @param joinPoint
      * @param retVal
