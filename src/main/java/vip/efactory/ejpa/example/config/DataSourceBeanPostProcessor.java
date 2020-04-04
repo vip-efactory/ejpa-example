@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.stereotype.Component;
-import vip.efactory.ejpa.config.tenant.ds.TenantDataSourceProvider;
 import vip.efactory.ejpa.example.entity.SysTenant;
 import vip.efactory.ejpa.example.service.ISysTenantService;
+import vip.efactory.ejpa.tenant.database.TenantDataSourceProvider;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
