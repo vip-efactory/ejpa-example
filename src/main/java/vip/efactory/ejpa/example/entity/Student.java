@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import vip.efactory.ejpa.base.valid.Update;
-import vip.efactory.ejpa.tenant.TenantBaseEntity;
+import vip.efactory.ejpa.tenant.column.TenantBaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

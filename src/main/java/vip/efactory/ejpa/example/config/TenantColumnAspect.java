@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
-import vip.efactory.ejpa.config.tenant.id.TenantHolder;
+import vip.efactory.ejpa.tenant.identifier.TenantHolder;
 
 import javax.persistence.EntityManager;
 

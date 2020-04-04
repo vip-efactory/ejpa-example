@@ -5,8 +5,8 @@ import org.hibernate.CallbackException;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.EntityMode;
 import org.hibernate.type.Type;
-import vip.efactory.ejpa.config.tenant.id.TenantHolder;
-import vip.efactory.ejpa.tenant.TenantBaseEntity;
+import vip.efactory.ejpa.tenant.column.TenantBaseEntity;
+import vip.efactory.ejpa.tenant.identifier.TenantHolder;
 
 import java.io.Serializable;
 
