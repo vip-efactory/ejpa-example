@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-import vip.efactory.ejpa.base.entity.BaseEntity;
 import vip.efactory.ejpa.base.valid.Update;
+import vip.efactory.ejpa.tenant.TenantBaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -22,7 +22,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
-public class Student extends BaseEntity<Long> {
+public class Student extends TenantBaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +55,7 @@ public class Student extends BaseEntity<Long> {
 
     @Email(message = "{Student.email}{property.format.error}", groups = {Update.class, Default.class})
     private String email;
+
 
     @Past(message = "{Student.birthday}{property.value.only.past}", groups = {Update.class, Default.class})
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
