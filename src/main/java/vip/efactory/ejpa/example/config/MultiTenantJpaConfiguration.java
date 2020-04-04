@@ -19,11 +19,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import vip.efactory.ejpa.config.tenant.ds.MultiTenantConnectionProviderImpl;
-import vip.efactory.ejpa.config.tenant.ds.MultiTenantIdentifierResolver;
-import vip.efactory.ejpa.config.tenant.ds.TenantDataSourceProvider;
-import vip.efactory.ejpa.config.tenant.id.TenantConstants;
 import vip.efactory.ejpa.example.entity.SysTenant;
+import vip.efactory.ejpa.tenant.database.MultiTenantConnectionProviderImpl;
+import vip.efactory.ejpa.tenant.database.MultiTenantIdentifierResolver;
+import vip.efactory.ejpa.tenant.database.TenantDataSourceProvider;
+import vip.efactory.ejpa.tenant.identifier.TenantConstants;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
