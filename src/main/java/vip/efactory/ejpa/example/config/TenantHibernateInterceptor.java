@@ -7,7 +7,6 @@ import vip.efactory.ejpa.tenant.column.TenantBaseEntity;
 import vip.efactory.ejpa.tenant.identifier.TenantHolder;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 /**
  * 重写hibernate的空拦截器的实现，对所有的实体操作都要进行租户条件过滤
@@ -47,27 +46,27 @@ public class TenantHibernateInterceptor extends EmptyInterceptor {
         }
     }
 
-    @Override
-    public void preFlush(Iterator entities) {
-        entities.forEachRemaining(entity -> {
-            if (entity instanceof TenantBaseEntity) {
-                log.debug("[pre-flush] Updating the entity with tenant information: " + TenantHolder.getTenantId());
-                ((TenantBaseEntity) entity).setTenantId(TenantHolder.getTenantId());
-            }
-        });
-    }
-
-//    /**
-//     * 清空flush时
-//     */
 //    @Override
-//    public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
-//        if (entity instanceof TenantBaseEntity) {
-//            log.debug("[flush-dirty] Updating the entity " + id + " with tenant information: " + TenantHolder.getTenantId());
-//            ((TenantBaseEntity) entity).setTenantId(TenantHolder.getTenantId());
-//        }
-//        return false;
+//    public void preFlush(Iterator entities) {
+//        entities.forEachRemaining(entity -> {
+//            if (entity instanceof TenantBaseEntity) {
+//                log.debug("[pre-flush] Updating the entity with tenant information: " + TenantHolder.getTenantId());
+//                ((TenantBaseEntity) entity).setTenantId(TenantHolder.getTenantId());
+//            }
+//        });
 //    }
+
+    /**
+     * 清空flush时
+     */
+    @Override
+    public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
+        if (entity instanceof TenantBaseEntity) {
+            log.debug("[flush-dirty] Updating the entity " + id + " with tenant information: " + TenantHolder.getTenantId());
+            ((TenantBaseEntity) entity).setTenantId(TenantHolder.getTenantId());
+        }
+        return false;
+    }
 //
 ////    @Override
 ////    public void postFlush(Iterator entities) {
