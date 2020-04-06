@@ -23,8 +23,12 @@ public class SysTenant extends TenantEntity<Long> {
      * 租户ID，也是主键，默认为0L
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "id {property.not.allow.empty}", groups = Update.class)  // 意味着，updateById更新时id不允许为空
     private Long id;
 
+    /**
+     * 租户状态: 0 --正常可用；1--禁用；
+     */
+    private Integer status;
 }
