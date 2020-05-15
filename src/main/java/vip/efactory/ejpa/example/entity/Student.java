@@ -29,7 +29,6 @@ public class Student extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "id {property.not.allow.empty}", groups = Update.class)  // 意味着，updateById更新时id不允许为空
-    @Column(name = "student_id", unique = true)
     private Long id;
 
     // 不论新增和更新都应符合要求
@@ -67,8 +66,8 @@ public class Student extends BaseEntity<Long> {
     @OneToMany(targetEntity = Teacher.class)
     @JoinTable(
             name = "tbl_stu_teacher",
-            joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id", unique = true)
+            joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id", unique = true)
     )
     private Set<Teacher> teachers = new HashSet<>(); // 一个学生关联多个老师
 }

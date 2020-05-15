@@ -24,7 +24,6 @@ import java.util.Date;
 public class Teacher extends BaseEntity<Long> {
 
     @Id
-    @Column(name = "teacher_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "id {property.not.allow.empty}", groups = Update.class)  // 意味着，updateById更新时id不允许为空
     private Long id;
@@ -47,7 +46,7 @@ public class Teacher extends BaseEntity<Long> {
     private Date birthday;
 
     @OneToOne(targetEntity = Course.class)
-    @JoinColumn(name = "course_id", referencedColumnName = "course_id", unique = true)
+    @JoinColumn(name = "course_id", referencedColumnName = "id", unique = true)
     private Course course; // 一个老师关联一个们学科
 
 }
