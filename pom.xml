@@ -19,8 +19,6 @@
         <ejpa.version>3.6.0</ejpa.version>
         <mysql.driver.version>8.0.18</mysql.driver.version>
         <querydsl.version>4.3.1</querydsl.version>
-        <slf4j.version>1.7.30</slf4j.version>
-        <derby.version>10.13.1.1</derby.version>  <!-- queryDSL sql查询依赖插件 暂时不要升级版本，在最新版的Derby 10.15.x中，该驱动类不再存在 -->
     </properties>
 
     <dependencies>
@@ -105,18 +103,6 @@
             <artifactId>querydsl-jpa</artifactId>
             <version>${querydsl.version}</version>
         </dependency>
-        <!-- querydsl sql查询的依赖 -->
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-sql</artifactId>
-            <version>${querydsl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-sql-codegen</artifactId>
-            <version>${querydsl.version}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -142,33 +128,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- querydsl sql查询， Maven插件使用 -->
-            <plugin>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-maven-plugin</artifactId>
-                <version>${querydsl.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jdbcDriver>org.apache.derby.jdbc.EmbeddedDriver</jdbcDriver>
-                    <jdbcUrl>jdbc:derby:target/demoDB;create=true</jdbcUrl>
-                    <packageName>${project.groupId}.${project.artifactId}</packageName>
-                    <targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
-                    <sourceFolder/>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.derby</groupId>
-                        <artifactId>derby</artifactId>
-                        <version>${derby.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
