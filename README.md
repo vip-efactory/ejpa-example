@@ -91,6 +91,7 @@ public class EjpaExampleApplication {
 
 }
 ```
+
 - 3.用IDEA运行项目即可
 
 - 更详细使用方式，请参考案例项目：https://github.com/vip-efactory/ejpa-example
