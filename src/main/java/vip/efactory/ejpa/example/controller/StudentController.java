@@ -7,14 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import vip.efactory.common.base.page.EPage;
+import vip.efactory.common.base.utils.R;
 import vip.efactory.ejpa.base.controller.BaseController;
 import vip.efactory.ejpa.base.entity.BaseSearchEntity;
 import vip.efactory.ejpa.example.entity.Student;
 import vip.efactory.ejpa.example.service.IStudentService;
-import vip.efactory.ejpa.utils.R;
 
 @RestController
 @RequestMapping("/student")
+@SuppressWarnings("all")
 public class StudentController extends BaseController<Student, IStudentService, Long> {
 
     /**
@@ -24,9 +26,10 @@ public class StudentController extends BaseController<Student, IStudentService, 
      * @return vip.efactory.ejpa.utils.R
      * @author dbdu
      */
+    @Override
     @ApiOperation(value = "获取分页数据", notes = "默认每页25条记录,id字段降序")
     @RequestMapping(value = "/page", method = {RequestMethod.GET})
-    public R getByPage(@PageableDefault(value = 25, sort = {"id"}, direction = Sort.Direction.DESC) Pageable page) {
+    public R<EPage> getByPage(@PageableDefault(value = 25, sort = {"id"}, direction = Sort.Direction.DESC) Pageable page) {
         return super.getByPage(page);
     }
 
@@ -59,7 +62,7 @@ public class StudentController extends BaseController<Student, IStudentService, 
     @ApiOperation(value = "多字段模糊查询,例如:q=abc&fields=name,address,desc", notes = "多个字段模糊匹配")
     @RequestMapping(value = "/fuzzy", method = {RequestMethod.GET})
     public R getByPage(@RequestParam String q, @RequestParam String fields, @PageableDefault(value = 25, sort = {"id"}, direction = Sort.Direction.DESC) Pageable page) {
-        return super.queryMutiField(q, fields, page);
+        return super.queryMultiField(q, fields, page);
     }
 
 
@@ -70,6 +73,7 @@ public class StudentController extends BaseController<Student, IStudentService, 
      * @return vip.efactory.ejpa.utils.R
      * @author dbdu
      */
+    @Override
     @GetMapping("/{id}")
     @ApiOperation(value = "依据Id来获取对应的记录", notes = "依据Id来获取对应的记录")
     public R getById(@PathVariable("id") Long id) {
@@ -84,6 +88,7 @@ public class StudentController extends BaseController<Student, IStudentService, 
      * @return vip.efactory.ejpa.utils.R
      * @author dbdu
      */
+    @Override
     @PostMapping
     @ApiOperation(value = "保存记录", notes = "保存学生实体")
     public R save( @RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) Student entity) {
@@ -97,6 +102,7 @@ public class StudentController extends BaseController<Student, IStudentService, 
      * @return vip.efactory.ejpa.utils.R
      * @author dbdu
      */
+    @Override
     @PutMapping
     @ApiOperation(value = "依据Id来更新对应的记录", notes = "依据Id来更新对应的记录,属性值为空则不更新数据表中已有的数据")
     public R updateById(@RequestBody @ApiParam(name = "entity", value = "Json格式", required = true) Student entity) {
@@ -110,6 +116,7 @@ public class StudentController extends BaseController<Student, IStudentService, 
      * @return vip.efactory.ejpa.utils.R
      * @author dbdu
      */
+    @Override
     @DeleteMapping("/{id}")
     @ApiOperation(value = "依据Id来删除对应的记录", notes = "依据Id来删除对应的记录")
     public R deleteById(@PathVariable Long id) {

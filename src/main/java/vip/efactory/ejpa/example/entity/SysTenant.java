@@ -2,8 +2,8 @@ package vip.efactory.ejpa.example.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import vip.efactory.common.base.valid.Update;
 import vip.efactory.ejpa.base.entity.TenantEntity;
-import vip.efactory.ejpa.base.valid.Update;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
