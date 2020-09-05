@@ -11,6 +11,7 @@ import vip.efactory.ejpa.base.entity.BaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -60,8 +61,7 @@ public class Student extends BaseEntity<Long> {
 
     @Past(message = "{Student.birthday}{property.value.only.past}", groups = {Update.class, Default.class})
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
+    private LocalDate birthday;
 
     @OneToMany(targetEntity = Teacher.class)
     @JoinTable(
