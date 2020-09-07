@@ -19,6 +19,7 @@
         <ejpa.version>4.0.0</ejpa.version>
         <mysql.driver.version>8.0.18</mysql.driver.version>
         <querydsl.version>4.3.1</querydsl.version>
+        <hutool.version>5.3.10</hutool.version>
     </properties>
 
     <dependencies>
@@ -102,6 +103,11 @@
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
             <version>${querydsl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 

@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -46,8 +47,7 @@ public class Course extends BaseEntity<Long> {
 
     // 本期课程开设日期
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
+    private LocalDate openingDate;
 
 //    @OneToOne(targetEntity = Teacher.class,mappedBy = "course")
 //    private Teacher teacher;
